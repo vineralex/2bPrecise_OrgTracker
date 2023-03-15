@@ -1,0 +1,28 @@
+<div class="modal-body">
+    <form [formGroup]="form">
+        <div class="mb-3">
+            <label for="taskText" class="form-lable">Text</label>
+            <input
+                formControlName="taskText"
+                id="taskText"
+                type="text" 
+                name="taskText"  
+                class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="dueDate" class="form-lable">Due Date</label>
+            <input
+                formControlName="dueDate"
+                id="dueDate"
+                type="date" 
+                placeholder="dd/MM/yyyy" 
+                date="dd/MM/yyyy" 
+                name="dueDate"
+                class="form-control">
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+    <button type="button" (click)="onTaskAssign()" data-bs-dismiss="modal" class="btn btn-primary">Assign</button>
+</div>

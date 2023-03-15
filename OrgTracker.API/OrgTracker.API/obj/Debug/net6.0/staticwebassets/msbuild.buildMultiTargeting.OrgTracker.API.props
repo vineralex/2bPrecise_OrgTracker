@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\OrgTracker.API.props" />
+</Project>

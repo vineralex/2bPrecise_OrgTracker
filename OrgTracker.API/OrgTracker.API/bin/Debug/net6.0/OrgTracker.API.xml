@@ -1,0 +1,417 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OrgTracker.API</name>
+    </assembly>
+    <members>
+        <member name="T:OrgTracker.API.Controllers.BaseController">
+            <summary>
+            Base controller for the API controllers to inherit from.
+            </summary>
+        </member>
+        <member name="T:OrgTracker.API.Controllers.EmployeeController">
+            <summary>
+            Controller class for handling employee-related API endpoints.
+            </summary>
+        </member>
+        <member name="M:OrgTracker.API.Controllers.EmployeeController.GetAllEmployees">
+            <summary>
+            Retrieves all employees as a collection of EmployeeDto objects.
+            </summary>
+            <returns>A collection of EmployeeDto objects representing all employees.</returns>
+        </member>
+        <member name="M:OrgTracker.API.Controllers.EmployeeController.GetEmployee(System.Int32)">
+            <summary>
+            Retrieves an individual employee by his ID.
+            </summary>
+            <param name="id">The ID of the employee to retrieve.</param>
+            <returns>The requested employee.</returns>
+        </member>
+        <member name="M:OrgTracker.API.Controllers.EmployeeController.GetSubordinaries(System.Int32)">
+            <summary>
+            Retrieves all subordinates of a specified manager as a collection of EmployeeDto objects.
+            </summary>
+            <param name="id">The ID of the manager whose subordinates are to be retrieved.</param>
+            <returns>A collection of EmployeeDto objects representing the subordinates of the specified manager.</returns>
+        </member>
+        <member name="T:OrgTracker.API.Controllers.ReportController">
+            <summary>
+            Controller class for handling report-related API endpoints.
+            </summary>
+        </member>
+        <member name="M:OrgTracker.API.Controllers.ReportController.GetReportsFromSubordinaries(System.Int32)">
+            <summary>
+            Retrieves all reports submitted by subordinates of a specific manager.
+            </summary>
+            <param name="managerId">The ID of the manager to retrieve reports for.</param>
+            <returns>An <see cref="T:System.Collections.Generic.IEnumerable`1"/> of <see cref="T:OrgTracker.API.DTOs.ReportDto"/> objects representing reports submitted by subordinates of the specified manager.</returns>
+        </member>
+        <member name="M:OrgTracker.API.Controllers.ReportController.Create(OrgTracker.API.DTOs.ReportDto,System.Int32,System.Int32)">
+            <summary>
+            Creates a new report and assigns it to an employee.
+            </summary>
+            <param name="reportDto">The report DTO object containing the report details.</param>
+            <param name="employeeId">The ID of the reporting employee.</param>
+            <param name="managerId">The ID of the supervising manager.</param>
+            <returns>An <see cref="T:Microsoft.AspNetCore.Mvc.ActionResult`1"/> of <see cref="T:OrgTracker.API.DTOs.ReportDto"/> representing the newly created report.</returns>
+        </member>
+        <member name="T:OrgTracker.API.Controllers.TaskController">
+            <summary>
+            Controller class for handling task-related API endpoints.
+            </summary>
+        </member>
+        <member name="M:OrgTracker.API.Controllers.TaskController.GetTasksAssignedToEmployee(System.Int32)">
+            <summary>
+            Retrieves all tasks assigned to a specific employee.
+            </summary>
+            <param name="employeeId">The ID of the employee to retrieve tasks for.</param>
+            <returns>An <see cref="T:System.Collections.Generic.IEnumerable`1"/> of <see cref="T:OrgTracker.API.DTOs.TaskDto"/> objects representing tasks assigned to the specified employee.</returns>
+        </member>
+        <member name="M:OrgTracker.API.Controllers.TaskController.Create(OrgTracker.API.DTOs.TaskDto,System.Int32,System.Int32)">
+            <summary>
+            Creates a new task assigned to a specific employee and supervised by a specific manager.
+            </summary>
+            <param name="taskDto">The <see cref="T:OrgTracker.API.DTOs.TaskDto"/> object representing the task to create.</param>
+            <param name="managerId">The ID of the manager supervising the task.</param>
+            <param name="assignToId">The ID of the employee the task is assigned to.</param>
+            <returns>The <see cref="T:OrgTracker.API.DTOs.TaskDto"/> object representing the created task.</returns>
+        </member>
+        <member name="T:OrgTracker.API.DbContexts.DbInitializer">
+            <summary>
+            A class that initializes the database with sample employee data.
+            </summary>
+        </member>
+        <member name="M:OrgTracker.API.DbContexts.DbInitializer.Initialize(OrgTracker.API.DbContexts.OrgTrackerDbContext)">
+            <summary>
+            Ensures the database is created and initialized with sample employee data.
+            </summary>
+            <param name="context">The database context to be initialized.</param>
+        </member>
+        <member name="T:OrgTracker.API.DbContexts.OrgTrackerDbContext">
+            <summary>
+            Represents the database context for the OrgTracker application.
+            This class provides access to the underlying database and DbSet properties for querying and modifying data.
+            </summary>
+        </member>
+        <member name="T:OrgTracker.API.DTOs.EmployeeDto">
+            <summary>
+            Data transfer object for an employee entity.
+            </summary>
+        </member>
+        <member name="P:OrgTracker.API.DTOs.EmployeeDto.Id">
+            <summary>
+            The unique identifier of the employee.
+            </summary>
+        </member>
+        <member name="P:OrgTracker.API.DTOs.EmployeeDto.FirstName">
+            <summary>
+            The first name of the employee.
+            </summary>
+        </member>
+        <member name="P:OrgTracker.API.DTOs.EmployeeDto.LastName">
+            <summary>
+            The last name of the employee.
+            </summary>
+        </member>
+        <member name="P:OrgTracker.API.DTOs.EmployeeDto.Position">
+            <summary>
+            The position of the employee.
+            </summary>
+        </member>
+        <member name="P:OrgTracker.API.DTOs.EmployeeDto.Manager">
+            <summary>
+            The manager of the employee.
+            </summary>
+        </member>
+        <member name="T:OrgTracker.API.DTOs.ReportDto">
+            <summary>
+            Data transfer object for a report entity.
+            </summary>
+        </member>
+        <member name="P:OrgTracker.API.DTOs.ReportDto.Id">
+            <summary>
+            The unique identifier of the report.
+            </summary>
+        </member>
+        <member name="P:OrgTracker.API.DTOs.ReportDto.Text">
+            <summary>
+            The text content of the report.
+            </summary>
+        </member>
+        <member name="P:OrgTracker.API.DTOs.ReportDto.Date">
+            <summary>
+            The date the report was submitted.
+            </summary>
+        </member>
+        <member name="T:OrgTracker.API.DTOs.TaskDto">
+            <summary>
+            Data transfer object for a task entity.
+            </summary>
+        </member>
+        <member name="P:OrgTracker.API.DTOs.TaskDto.Id">
+            <summary>
+            The unique identifier of the task.
+            </summary>
+        </member>
+        <member name="P:OrgTracker.API.DTOs.TaskDto.Text">
+            <summary>
+            The text content of the task.
+            </summary>
+        </member>
+        <member name="P:OrgTracker.API.DTOs.TaskDto.AssignedDate">
+            <summary>
+            The date on which the task was assigned.
+            </summary>
+        </member>
+        <member name="P:OrgTracker.API.DTOs.TaskDto.DueDate">
+            <summary>
+            The due date of the task.
+            </summary>
+        </member>
+        <member name="T:OrgTracker.API.Entities.BaseEntity">
+            <summary>
+            A base abstract class for entities in the OrgTracker application.
+            </summary>
+        </member>
+        <member name="P:OrgTracker.API.Entities.BaseEntity.Id">
+            <summary>
+            Gets or sets the unique identifier for the entity.
+            </summary>
+        </member>
+        <member name="T:OrgTracker.API.Entities.Employee">
+            <summary>
+            Represents an employee in the organization.
+            </summary>
+        </member>
+        <member name="P:OrgTracker.API.Entities.Employee.FirstName">
+            <summary>
+            Gets or sets the first name of the employee.
+            </summary>
+        </member>
+        <member name="P:OrgTracker.API.Entities.Employee.LastName">
+            <summary>
+            Gets or sets the last name of the employee.
+            </summary>
+        </member>
+        <member name="P:OrgTracker.API.Entities.Employee.Position">
+            <summary>
+            Gets or sets the position of the employee.
+            </summary>
+        </member>
+        <member name="P:OrgTracker.API.Entities.Employee.ManagerId">
+            <summary>
+            Gets or sets the manager of the employee.
+            </summary>
+        </member>
+        <member name="P:OrgTracker.API.Entities.Employee.Subordinates">
+            <summary>
+            Gets or sets the subordinates of the manager.
+            </summary>
+        </member>
+        <member name="T:OrgTracker.API.Entities.Report">
+            <summary>
+            Represents a report submitted by an employee to their supervising manager.
+            </summary>
+        </member>
+        <member name="P:OrgTracker.API.Entities.Report.Text">
+            <summary>
+            The text content of the report.
+            </summary>
+        </member>
+        <member name="P:OrgTracker.API.Entities.Report.Date">
+            <summary>
+            The date the report was submitted.
+            </summary>
+        </member>
+        <member name="T:OrgTracker.API.Entities.Task">
+            <summary>
+            Represents a task assigned to an employee.
+            </summary>
+        </member>
+        <member name="P:OrgTracker.API.Entities.Task.Text">
+            <summary>
+            Gets or sets the text of the task.
+            </summary>
+        </member>
+        <member name="P:OrgTracker.API.Entities.Task.AssignedDate">
+            <summary>
+            Gets or sets the date on which the task was assigned.
+            </summary>
+        </member>
+        <member name="P:OrgTracker.API.Entities.Task.DueDate">
+            <summary>
+            Gets or sets the due date of the task.
+            </summary>
+        </member>
+        <member name="T:OrgTracker.API.Migrations.Init">
+            <inheritdoc />
+        </member>
+        <member name="M:OrgTracker.API.Migrations.Init.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:OrgTracker.API.Migrations.Init.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:OrgTracker.API.Migrations.Init.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:OrgTracker.API.Migrations.AddEmployee">
+            <inheritdoc />
+        </member>
+        <member name="M:OrgTracker.API.Migrations.AddEmployee.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:OrgTracker.API.Migrations.AddEmployee.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:OrgTracker.API.Migrations.AddEmployee.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:OrgTracker.API.Migrations.EmployeeOneToMany">
+            <inheritdoc />
+        </member>
+        <member name="M:OrgTracker.API.Migrations.EmployeeOneToMany.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:OrgTracker.API.Migrations.EmployeeOneToMany.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:OrgTracker.API.Migrations.EmployeeOneToMany.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:OrgTracker.API.Migrations.Reports">
+            <inheritdoc />
+        </member>
+        <member name="M:OrgTracker.API.Migrations.Reports.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:OrgTracker.API.Migrations.Reports.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:OrgTracker.API.Migrations.Reports.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:OrgTracker.API.Migrations.Tasks">
+            <inheritdoc />
+        </member>
+        <member name="M:OrgTracker.API.Migrations.Tasks.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:OrgTracker.API.Migrations.Tasks.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:OrgTracker.API.Migrations.Tasks.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:OrgTracker.API.Services.BaseService">
+            <summary>
+            Base service class providing a DbContext instance to its derived classes.
+            </summary>
+        </member>
+        <member name="M:OrgTracker.API.Services.BaseService.#ctor(OrgTracker.API.DbContexts.OrgTrackerDbContext)">
+            <summary>
+            Initializes a new instance of the BaseService class with the specified DbContext.
+            </summary>
+            <param name="context">The DbContext instance to be used.</param>
+        </member>
+        <member name="T:OrgTracker.API.Services.IEmployeeService">
+            <summary>
+            Defines the interface for EmployeeService.
+            </summary>
+        </member>
+        <member name="M:OrgTracker.API.Services.IEmployeeService.GetAll">
+            <summary>
+            Returns a queryable collection of all employees.
+            </summary>
+            <returns>The collection of employees.</returns>
+        </member>
+        <member name="M:OrgTracker.API.Services.IEmployeeService.GetById(System.Int32)">
+            <summary>
+            Returns the employee with the specified ID, including his manager.
+            </summary>
+            <param name="id">The ID of the employee.</param>
+            <returns>The employee with the specified ID, including his manager.</returns>
+        </member>
+        <member name="M:OrgTracker.API.Services.IEmployeeService.GetSubordinaries(System.Int32)">
+            <summary>
+            Returns a queryable collection of employees who subordinates to the manager with the specified ID.
+            </summary>
+            <param name="id">The ID of the manager.</param>
+            <returns>The collection of subordinate employees.</returns>
+        </member>
+        <member name="T:OrgTracker.API.Services.EmployeeService">
+            <summary>
+            Represents an instance of the <see cref="T:OrgTracker.API.Services.EmployeeService"/> class.
+            </summary>
+        </member>
+        <member name="M:OrgTracker.API.Services.EmployeeService.GetAll">
+            <inheritdoc/>
+        </member>
+        <member name="M:OrgTracker.API.Services.EmployeeService.GetById(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:OrgTracker.API.Services.EmployeeService.GetSubordinaries(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="T:OrgTracker.API.Services.IReportService">
+            <summary>
+            Defines the interface for ReportService.
+            </summary>
+        </member>
+        <member name="M:OrgTracker.API.Services.IReportService.Create(OrgTracker.API.Entities.Report)">
+            <summary>
+            Creates a new report.
+            </summary>
+            <param name="report">The report to create.</param>
+            <returns>The created report.</returns>
+        </member>
+        <member name="M:OrgTracker.API.Services.IReportService.GetReportsFromSubordinaries(System.Int32)">
+            <summary>
+            Retrieves all reports submitted by subordinates of a specific manager.
+            </summary>
+            <param name="managerId">The ID of the manager to retrieve reports for.</param>
+            <returns>An <see cref="T:System.Linq.IQueryable`1"/> of <see cref="T:OrgTracker.API.Entities.Report"/> objects submitted by subordinates of the specified manager.</returns>
+        </member>
+        <member name="T:OrgTracker.API.Services.ReportService">
+            <summary>
+            Represents an instance of the <see cref="T:OrgTracker.API.Services.ReportService"/> class.
+            </summary>
+        </member>
+        <member name="M:OrgTracker.API.Services.ReportService.Create(OrgTracker.API.Entities.Report)">
+            <inheritdoc/>
+        </member>
+        <member name="M:OrgTracker.API.Services.ReportService.GetReportsFromSubordinaries(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="T:OrgTracker.API.Services.ITaskService">
+            <summary>
+            Defines the interface for TaskService.
+            </summary>
+        </member>
+        <member name="M:OrgTracker.API.Services.ITaskService.Create(OrgTracker.API.Entities.Task)">
+            <summary>
+            Creates a new task.
+            </summary>
+            <param name="task">The task to create.</param>
+            <returns>The created task.</returns>
+        </member>
+        <member name="M:OrgTracker.API.Services.ITaskService.GetTasksAssignedToEmployee(System.Int32)">
+            <summary>
+            Retrieves all tasks assigned to a specific employee.
+            </summary>
+            <param name="assignedToId">The ID of the employee to retrieve tasks for.</param>
+            <returns>An <see cref="T:System.Linq.IQueryable`1"/> of <see cref="T:OrgTracker.API.Entities.Task"/> objects assigned to the specified employee.</returns>
+        </member>
+        <member name="T:OrgTracker.API.Services.TaskService">
+            <summary>
+            Represents an instance of the <see cref="T:OrgTracker.API.Services.TaskService"/> class.
+            </summary>
+        </member>
+        <member name="M:OrgTracker.API.Services.TaskService.Create(OrgTracker.API.Entities.Task)">
+            <inheritdoc/>
+        </member>
+        <member name="M:OrgTracker.API.Services.TaskService.GetTasksAssignedToEmployee(System.Int32)">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>

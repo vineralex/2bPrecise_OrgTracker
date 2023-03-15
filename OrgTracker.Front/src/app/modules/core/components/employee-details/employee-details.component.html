@@ -1,0 +1,64 @@
+<div class="container mt-3 fs-5">
+    <div class="row">
+        <div class="col-2">
+            <img class="rounded mx-auto d-block fs-6 text-secondary border border-primary border-2" style="height: 100%; width:100%; " alt="{{ getFullName() }}">
+        </div>
+        <div class="col-10 px-5 py-3">
+            <div class="row">
+                <div class="col col-md-3 col-sm-4">Name:</div>
+                <div class="col">{{ getFullName() }}</div>
+            </div>
+            <div class="row">
+                <div class="col col-md-3 col-sm-4">Position:</div>
+                <div class="col">{{ employee.position }}</div>
+            </div>
+            <hr class="border border-primary border-3 opacity-75">
+            <div class="row" *ngIf="!!employee.manager">
+                <div class="col-6 col-md-3 col-sm-4">Manager:</div>
+                <div class="col-6 col-md-3 col-sm-4">
+                    <a [routerLink]="['/employee', employee.manager.id, getName(employee.manager)]">{{ getName(employee.manager) }}</a>
+                </div>
+                <div class="col">
+                    <div 
+                        class="btn btn-lg btn-primary" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#createReportModal">Report</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<my-tasks 
+    [p_employeeId]="employee.id"></my-tasks>
+<subordinaries
+    [p_employeeId]="employee.id">
+</subordinaries>
+<my-reports
+    [p_employeeId]="employee.id"></my-reports>
+
+<div 
+    class="modal fade" id="createReportModal" 
+    *ngIf="!!employee.manager"
+    data-bs-backdrop="static" 
+    data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" 
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">{{getName(employee)}} reports to {{getName(employee.manager)}}</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <create-report
+            [p_employeeId]="employee.id"
+            [p_managerId]="employee.manager.id"></create-report>
+      </div>
+    </div>
+  </div>
+  
+<div class="container my-5">
+    <div class="row">
+    <div class="col text-center">
+        <div class="btn btn-primary mx-auto" [routerLink]="['']">Employee List</div>
+    </div>
+    </div>
+</div>

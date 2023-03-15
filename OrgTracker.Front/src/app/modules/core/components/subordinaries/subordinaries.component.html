@@ -1,0 +1,36 @@
+<div class="container mt-3 fs-5" *ngIf="subordinaries.length > 0">
+    <div class="row">
+        <div class="col">My subordinaries:</div>
+    </div>
+    <div class="row">
+        <div class="col rounded border border-2 border-primary pb-2">
+            <div class="row mt-2" *ngFor="let subordinary of subordinaries">
+                <div class="col-4 col-lg-3"><a [routerLink]="['/employee', subordinary.id, getName(subordinary)]">{{ getName(subordinary) }}</a></div>
+                <div class="col-4 col-lg-3">{{ subordinary.position }}</div>
+                <div class="col">
+                    <div 
+                        class="btn btn-primary" 
+                        (click)="onAssignTask(subordinary)"
+                        data-bs-toggle="modal" 
+                        data-bs-target="#assignTaskModal">Assign task</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="assignTaskModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Assign task to {{getName(currentSubordinary)}}</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <assign-task
+          [p_managerId]="p_employeeId"
+          [p_assignToId]="currentSubordinary.id"></assign-task>
+      </div>
+    </div>
+  </div>
+  
